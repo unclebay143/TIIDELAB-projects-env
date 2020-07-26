@@ -1,32 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TiideLab Signup Form</title>
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>TiideLab Signup Form</title>
+        <style>
+            body{
+                background-color: mediumpurple;
+            }
+            /* Style for all input tags in the html code */
+            input{
+                width: 80%;
+                /* Increasing size(up and down ) of the form input tags */
+                padding: 10px; 
+                margin: 5px 20px;
+                border-radius: 10px;
+            }
+            input:focus{
+                background-color: salmon;
+                color:seashell;
+                outline: none;
+            }
+        
+        .submitBtn{
+                background-color: slateblue;
+                width: 85%;
+                color: snow;
+                font-size: 40px;
+            }
+            h3{
+                color: slateblue;
+                margin:15px;
+                font-size: 32px;
+            }
+            .form-container{
+                width: 50%;
+            }
+            .instruction{
+                width: 50%;
+            }
+            @media screen and (max-width: 800px){
+                .form-container, .instruction{
+                    width: 100%;
+                }
+                /*  My image is smaller and the margin on the desktop view is affecting it in the mobile view */
+                img{
+                    margin: 2% !important;
+                }
+                /* The font seems too big on the mobile */
+                h3{
+                    font-size: 29px;
+                }
 
-    </style>
-</head>
-<body>
+            }
 
-    <div >
-        <div>
-            <div>
-                <form action="" method="post">
-                    <input type="text" name="">
-                    <input type="text" name="">
-                    <input type="text" name="">
-                    <input type="text" name="">
-                    <input type="submit" value="Submit">
-                    <script>
+        </style>
+    </head>
+    <body>
+        <!-- I increased the padding for clearer visibility -->
+        <div style="width: 70%; background-color: mistyrose; padding: 50px; margin: 40px auto; border-radius: 10px;">
+            <div style="float: left;" class="instruction">
+                <!-- My image is small, i am setting the margin to 25% 25% to make it align to the center -->
+                <img src="img/join_us.png" alt=" Join Us " style="max-width=%; margin: 25% 25%;">
+            </div>
+            <div style="float:left;" class="form-container">
+                <h3>User Registration Form</h3>
+                <form action="" name="SignupForm" id="SignupForm" onsubmit="processForm()">
+                    <input type="text" name="fullName" id="fullName" placeholder="Enter Your Full Name">
+                    <input type="email" name="email" id="email" placeholder="Enter Your Email Address">
+                    <input type="text" name="userName" id="userName" placeholder="Enter Your Username">
+                    <input type="password" name="password" id="password" placeholder=" Enter Your Password">
+                    <input type="password" name="cpassword" id="confirmPassword" placeholder="Enter Your Password Again">
+                    <input type="submit" value="Signup" class="submitBtn">
 
-                    </script>
                 </form>
             </div>
+            <!-- Clearing the effect of float on the previous containers -->
+            <div style="clear: both;"></div>
         </div>
-    </div>
-    
-</body>
+        <script>
+            document.getElementById("SignupForm").addEventListener("submit", function(event)
+            {
+                event.preventDefault()
+            })
+            function processForm(){
+                fullname = document.getElementById('fullName').value
+                email = document.getElementById('email').value
+                username = document.getElementById('userName').value
+                password = document.getElementById('password').value
+                cpassword = document.getElementById('confirmPassword').value
+                var data = {
+                        "fullName": fullname,
+                        "email": email,
+                        "userName": username,
+                        "newpassword":password,
+                        "isEnabled": true,
+                        "roles": ["user"]
+                    }
+                if(password != cpassword){
+                    alert(password != cpassword)
+                }else{
+                    fetch('https://api.openclass.ng/Register',{
+                        method : 'POST',
+                        body : JSON.stringify,
+                        header:{
+                            'Content-Type':'application/json'
+                        }
+
+                    }) .then (function(data){
+                        alert("Congrats")
+                    })
+                    }
+            }
+    </script>    
+    </body>
 </html>
