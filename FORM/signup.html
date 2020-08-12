@@ -9,7 +9,7 @@
             body{
                 background-color: mediumpurple;
             }
-            /* Style for all input tags in the html code */
+                /* Style for all input tags in the html code */
             input{
                 width: 80%;
                 /* Increasing size(up and down ) of the form input tags */
@@ -48,7 +48,7 @@
                 img{
                     margin: 2% !important;
                 }
-                /* The font seems too big on the mobile */
+                /* The font-size: 32px; seems too big on the mobile */
                 h3{
                     font-size: 29px;
                 }
@@ -84,35 +84,36 @@
             {
                 event.preventDefault()
             })
-            function processForm(){
-                fullname = document.getElementById('fullName').value
-                email = document.getElementById('email').value
-                username = document.getElementById('userName').value
-                password = document.getElementById('password').value
-                cpassword = document.getElementById('confirmPassword').value
-                var data = {
-                        "fullName": fullname,
-                        "email": email,
-                        "userName": username,
-                        "newpassword":password,
-                        "isEnabled": true,
-                        "roles": ["user"]
+            function processForm()
+            {
+                var fullName = document.getElementById('fullName').value
+                    email = document.getElementById('email').value
+                    username = document.getElementById('userName').value
+                    password = document.getElementById('password').value
+                    cpassword = document.getElementById('confirmPassword').value
+                    if(password != cpassword){
+                        alert("Password Mismatch")
+                    }else{
+                            var data = {
+                                "fullName": fullName,
+                                "email": email,
+                                "userName": username,
+                                "newpassword":password,
+                                "isEnabled": true,
+                                "roles": ["user"]
+                            }
+                    
+                                fetch('https://api.openclass.ng/Register',{
+                                method : 'POST',
+                                body : JSON.stringify(data),
+                                headers:{
+                                    'Content-Type':'application/json'
+                                }
+                            }).then (function(data){
+                               alert("Congrats " + username + ", has been created")
+                            })
+                            }
                     }
-                if(password != cpassword){
-                    alert(password != cpassword)
-                }else{
-                    fetch('https://api.openclass.ng/Register',{
-                        method : 'POST',
-                        body : JSON.stringify,
-                        header:{
-                            'Content-Type':'application/json'
-                        }
-
-                    }) .then (function(data){
-                        alert("Congrats")
-                    })
-                    }
-            }
     </script>    
     </body>
 </html>
